@@ -75,13 +75,42 @@ ggplot(data = mpg, aes(x = displ, y = hwy, color = class)) +
 
 #Aesthetics####
 # a third aes - colour ####
-borders_data_plot %>%
+borders_data %>%
   ggplot(aes(x = ageonadmission, 
              y = LengthOfStay, 
              colour = Sex)) +
   geom_point()
 
+##positional options
 
+#bar charts
+
+
+####Mapping####
+#colour all points blue regardless of value
+ggplot(data = mpg, aes(x = displ, y = hwy)) + 
+  geom_point(colour="blue" ) 
+
+#
+
+
+#themes####
+
+borders_data %>%
+  ggplot(aes(x = ageonadmission, fill = Sex)) +
+ geom_histogram(binwidth = 10, 
+                 position = position_dodge()) #+
+ # scale_fill_discrete(type = c("#88478B", "#3A3776")) +
+#  xlab("Age") +
+#  ylab("Count") +
+#  ggtitle("Age Distribution of Borders Hospital Admissions", subtitle = "") +
+#  theme(plot.title = element_text(colour = "#3A3776", family = "sans"),
+#        axis.title = element_text(colour = "#88478B"),
+#        legend.title = element_text(colour = "#88478B"),
+#        panel.background = element_blank(),
+#        panel.grid.major.y = element_line(colour = "light grey"))
+
+#additional examples####
 
 ##facets####
 View(mpg)
