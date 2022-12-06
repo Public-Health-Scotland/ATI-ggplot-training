@@ -73,3 +73,11 @@ ggplot(data = mpg, aes(x = displ, y = hwy, color = class)) +
 #line
 
 
+#Aesthetics####
+# a third aes - colour ####
+borders_data_plot %>%
+  ggplot(aes(x = ageonadmission, 
+             y = LengthOfStay, 
+             colour = Sex)) +
+  geom_point()
+
