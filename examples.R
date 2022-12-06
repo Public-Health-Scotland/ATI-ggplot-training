@@ -81,3 +81,10 @@ borders_data_plot %>%
              colour = Sex)) +
   geom_point()
 
+
+
+##facets####
+View(mpg)
+ggplot(data = mpg) + 
+  geom_point(mapping = aes(x = displ, y = hwy)) + 
+  facet_wrap(~cyl)
