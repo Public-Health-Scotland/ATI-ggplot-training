@@ -44,14 +44,17 @@ g + geom_bar()  # default "stat" is count
 g + geom_bar(stat = "count")  
 
 #if your data is already aggregated into counts
-df <- data.frame(x = rep(c("A", "B", "C"),2), y= c(5, 10, 4,1,2,3))
+df <- data.frame(x = rep(c("A", "B", "C"),2),
+                 y= c(5, 10, 4,1,2,3), 
+                 z = c(rep("test1",3), rep("test2", 3)))
 g <- ggplot(df, aes(x=x, y=y)) +
   geom_bar(stat = "identity")  
 
-g <- ggplot(df, aes(x=x, y=y, fill=y)) +
-  geom_bar(stat = "stack")  
+ggplot(df, aes(x=x, y=y, fill=z)) +
+  geom_bar(stat = "identity")  
 
-
+ggplot(df, aes(x=x, y=y, fill=z)) +
+  geom_bar(stat = "identity", position = "dodge")  
 
 ##point
 # Keep 30 first rows in the mtcars natively available dataset
@@ -75,8 +78,6 @@ ggplot(data = mpg) +
 ggplot(data = mpg, aes(x = displ, y = hwy, color = class)) + 
   geom_point() # NOTE that the aesthetics can go inside goem point OR inside the ggplot command
 
-
-
 #line
 
 
@@ -85,24 +86,40 @@ ggplot(data = mpg, aes(x = displ, y = hwy, color = class)) +
 borders_data %>%
   ggplot(aes(x = ageonadmission, 
              y = LengthOfStay, 
-             colour = Sex)) +
+             colour = as.character(Sex))) +
   geom_point()
 
 ##positional options
+#jitter points
+borders_data %>%
+  ggplot(aes(x = ageonadmission, 
+             y = LengthOfStay, 
+             colour = Sex)) +
+  geom_point(position = position_jitter())
 
-#bar charts
 
+##scale options
+borders_data %>%
+  ggplot(aes(x = ageonadmission, 
+             y = LengthOfStay, 
+             colour = Sex)) +
+  geom_point(position = position_jitter()) +
+  scale_x_continuous(name = "Age on Admission (Years)") 
 
 ####Mapping####
 #colour all points blue regardless of value
 ggplot(data = mpg, aes(x = displ, y = hwy)) + 
   geom_point(colour="blue" ) 
 
-#
+#Geometrey####
+#multiple geoms
+ggplot(data = car_data, mapping = 
+         aes(x = displ, y = hwy)) + 
+  geom_point(position = position_jitter(),alpha = 0.5) + 
+  geom_smooth(colour = "#76B843") 
 
 
 #themes####
-
 #basic example of some built in themes
 df <- data.frame(x = 1:3, y = 1:3)
 base <- ggplot(df, aes(x, y)) + geom_point()
