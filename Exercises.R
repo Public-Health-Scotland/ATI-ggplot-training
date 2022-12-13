@@ -1,7 +1,9 @@
 ##########################
 ##Exercises for ggplot###
 ###########################
-
+library(ggplot2)
+library(lubridate)
+library(dplyr)
 ##Load data first
 borders_data <- readRDS("data/borders.rds")
 
@@ -34,7 +36,7 @@ borders_data %>%
   ggplot(aes(x = spec_1, 
              y = LengthOfStay)) +
   geom_point(position = position_jitter())
-
+ 
 ##Exercise 3####
 #1.  We need more readable variable names: pick new titles for the x and y axes.
 #2. It could be said that the visualisation is misleading due to the y-axis limits. Fix this by specifying the lower limit to be 0. This needs a length-2 vector (i.e. c(x, y)), remember the upper limit.
@@ -46,10 +48,36 @@ borders_data %>%
          spec_1 %in% c("H", "J")) %>%
   ggplot(aes(x = spec_1, 
              y = ageonadmission,
-             colour = Sex)) +
-  geom_boxplot()
+             colour = as.factor(Sex))) +
+  geom_boxplot() 
 
 
 ## Excercise 4 ####
+#themes#### (or use themes exercise in the app)
+## Excercise 4 ####
 #themes####
+# 1. Change the colour of the title text.
+# 2. Change the colour of the legend text
+# 3. make the plot background white
+# 4. emphasise the y gridlines (change colour and or  thickness), and remove the x axis gridlines
+# 5. make the x and y axes visible (ie change the colour)
+#hint -  you will need to use the "element" functions for text, lines, areas 
+#- think about what type of graph element you are modifying to help you choose the right one
+# e.g. if you are modifying some text you will need element_text. And use either the app examples or 
+# for help - see the examples in section 18 (18.2 onwards especially) of this page https://ggplot2-book.org/polishing.html
 
+borders_data %>%
+  filter(HospitalCode == "B120H",
+         spec_1 %in% c("H", "J")) %>%
+  ggplot(aes(x = spec_1, 
+             y = ageonadmission,
+             colour = as.factor(Sex))) +
+  geom_boxplot() +
+  ggtitle("Admissions to specialities H and J") +
+  theme(plot.title = element_text(     ),    ####
+        legend.title = ,
+        panel.background = ,
+        panel.grid.major.y = ,
+        panel.grid.major.x = , 
+        axis.line = 
+  )
