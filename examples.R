@@ -113,7 +113,7 @@ ggplot(data = mpg, aes(x = displ, y = hwy)) +
 
 #Geometrey####
 #multiple geoms
-ggplot(data = car_data, mapping = 
+ggplot(data = mpg, mapping = 
          aes(x = displ, y = hwy)) + 
   geom_point(position = position_jitter(),alpha = 0.5) + 
   geom_smooth(colour = "#76B843") 
