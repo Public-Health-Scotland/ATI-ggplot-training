@@ -150,9 +150,9 @@ p +  theme(plot.title = element_text(colour = "#3A3776", family = "sans"),
 #additional examples####
 #see: https://ggplot2-book.org/polishing.html section 18
 base + theme(panel.grid.major = element_line(colour = "black"))
-base + theme(panel.grid.major = element_line(size = 2))
+base + theme(panel.grid.major = element_line(linewidth = 2))
 base + theme(panel.grid.major = element_line(linetype = "dotted"))
-base + theme(plot.background = element_rect(colour = "red", size = 2))
+base + theme(plot.background = element_rect(colour = "red", linewidth = 2))
 base + theme(panel.background = element_rect(fill = "linen"))
 ##facets####
 View(mpg)
