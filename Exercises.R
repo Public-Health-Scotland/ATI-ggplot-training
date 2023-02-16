@@ -52,10 +52,8 @@ borders_data %>%
   geom_boxplot() 
 
 
-## Excercise 4 ####
-#themes#### (or use themes exercise in the app)
-## Excercise 4 ####
-#themes####
+## Exercise 4 ####
+#####themes#### (or use themes exercise in the app)
 # 1. Change the colour of the title text.
 # 2. Change the colour of the legend text
 # 3. make the plot background white
@@ -65,7 +63,7 @@ borders_data %>%
 #- think about what type of graph element you are modifying to help you choose the right one
 # e.g. if you are modifying some text you will need element_text. And use either the app examples or 
 # for help - see the examples in section 18 (18.2 onwards especially) of this page https://ggplot2-book.org/polishing.html
-
+#https://github.com/Public-Health-Scotland/phsstyles
 borders_data %>%
   filter(HospitalCode == "B120H",
          spec_1 %in% c("H", "J")) %>%

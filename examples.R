@@ -7,7 +7,7 @@
 library(ggplot2)
 library(lubridate)
 library(dplyr)
-
+library(phsstyles)#https://github.com/Public-Health-Scotland/phsstyles for instructions on how to install.
 
 # load data
 borders_data <- readRDS("data/borders.rds")
@@ -20,11 +20,22 @@ borders_data <- borders_data %>%
 
 #Examples of different plot types####
 ##Example 1 plot####
+#the point of these examples is to demonstrate different geoms
+#and to get a flavour of other options avlible to modify the look of your graph
+
+#scatterplot# 
 borders_data %>%
   ggplot(aes(x = ageonadmission, 
              y = LengthOfStay, 
              colour = Sex)) +
-  geom_point(alpha = 0.5) +
+  geom_point() 
+
+#same scatterplot# with "minimal" theme and customised titles (demonstrates the grammer of graphics, building up layers)
+borders_data %>%
+  ggplot(aes(x = ageonadmission, 
+             y = LengthOfStay, 
+             colour = Sex)) +
+  geom_point()  +
   theme_minimal() +
   ylab("Length of Stay (days)") +
   xlab("Age on Admission (years)") +
@@ -69,17 +80,17 @@ ggplot(data, aes(x=wt, y=mpg)) +
     check_overlap = T
   )
 
-#add colours
-ggplot(data = mpg) + 
-  geom_point(mapping = aes(x = displ, y = hwy, color = class)) 
-# NOTE that the aesthetics can go inside goem point OR inside the ggplot command
-# if you have just one main ploting layr (geom_point) in this case, it makes no difference
-# if you wanted to plot some points then plot a line on top, with different aesthetics, you would 
+#add colour as a 3rd aesthetic
 ggplot(data = mpg, aes(x = displ, y = hwy, color = class)) + 
-  geom_point() # NOTE that the aesthetics can go inside goem point OR inside the ggplot command
+  geom_point() #
 
-#line
-
+# NOTE that the aesthetics can go inside goem point OR inside the ggplot command IF 
+#  you have just one main plotting layer (geom_point) , you can do either
+# However, if you wanted to plot some points then plot another geom  on top, with different aesthetics, 
+# you would need to put the aesthetics inside the geom
+#
+ ggplot(data = mpg) + 
+   geom_point(mapping = aes(x = displ, y = hwy, color = class)) 
 
 #Aesthetics####
 #### a third aes - colour ####
@@ -117,7 +128,7 @@ ggplot(data = mpg, mapping =
          aes(x = displ, y = hwy)) + 
   geom_point(position = position_jitter(),alpha = 0.5) + 
   geom_smooth(colour = "#76B843") 
-
+#NOTE because both geoms use the same data variables for x and y , the aes remains in ggplot(), not in the geoms()
 
 #themes####
 #basic example of some built in themes
@@ -127,12 +138,23 @@ base + theme_grey() + ggtitle("theme_grey()")
 base + theme_bw() + ggtitle("theme_bw()")
 base + theme_linedraw() + ggtitle("theme_linedraw()")
 
+#PHS has a theme  - see phsstyles package
+##theme_phs()
+phs_bar_chart <- ggplot(mtcars, aes(x = as.factor(cyl), fill = as.factor(cyl))) +  
+  geom_bar() +
+  theme_phs()
+
+##use phs_colours
+phs_bar_chart <- ggplot(mtcars, aes(x = as.factor(cyl), fill = as.factor(cyl))) +  
+  geom_bar() + scale_fill_manual(values = phs_colours(c("phs-purple", "phs-magenta", "phs-blue"))) +
+  theme_phs()
 
 
 ##example modifying various theme elements 
-p <- borders_data %>%
-  ggplot(aes(x = ageonadmission, fill = Sex)) +
- geom_histogram(binwidth = 10, 
+#plot with titles
+p <- borders_data %>% filter(!is.na(ageonadmission)) %>%
+  ggplot(aes(x = ageonadmission, fill = as.character(Sex))) +
+ geom_histogram(binwidth = 5, 
                  position = position_dodge()) +
   scale_fill_discrete(type = c("#88478B", "#3A3776")) +
   xlab("Age") +
@@ -140,7 +162,7 @@ p <- borders_data %>%
  ggtitle("Age Distribution of Borders Hospital Admissions", subtitle = "") 
 
 p 
-
+#theme elements
 p +  theme(plot.title = element_text(colour = "#3A3776", family = "sans"),
         axis.title = element_text(colour = "#88478B"),
         legend.title = element_text(colour = "#88478B"),
@@ -154,6 +176,9 @@ base + theme(panel.grid.major = element_line(linewidth = 2))
 base + theme(panel.grid.major = element_line(linetype = "dotted"))
 base + theme(plot.background = element_rect(colour = "red", linewidth = 2))
 base + theme(panel.background = element_rect(fill = "linen"))
+
+
+
 ##facets####
 View(mpg)
 ggplot(data = mpg) + 
