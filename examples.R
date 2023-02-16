@@ -18,7 +18,7 @@ borders_data <- borders_data %>%
   mutate(DateofAdmission = paste0(substr(DateofAdmission,1,4), "-",substr(DateofAdmission,5,6), "-" ,substr(DateofAdmission,7,8) ))  %>%
   mutate(ageonadmission = time_length(difftime(as.Date(DateofAdmission, "%Y-%m-%d"),as.Date(Dateofbirth, "%Y-%m-%d") ),"years"))
 
-
+#Examples of different plot types####
 ##Example 1 plot####
 borders_data %>%
   ggplot(aes(x = ageonadmission, 
@@ -82,7 +82,7 @@ ggplot(data = mpg, aes(x = displ, y = hwy, color = class)) +
 
 
 #Aesthetics####
-# a third aes - colour ####
+#### a third aes - colour ####
 borders_data %>%
   ggplot(aes(x = ageonadmission, 
              y = LengthOfStay, 
@@ -106,7 +106,7 @@ borders_data %>%
   geom_point(position = position_jitter()) +
   scale_x_continuous(name = "Age on Admission (Years)") 
 
-####Mapping####
+###Mapping####
 #colour all points blue regardless of value
 ggplot(data = mpg, aes(x = displ, y = hwy)) + 
   geom_point(colour="blue" ) 
