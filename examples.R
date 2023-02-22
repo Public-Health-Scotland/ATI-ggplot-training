@@ -1,6 +1,5 @@
 #####################################
 ###   Introduction to ggplot2   #####
-##
 ####################################
 
 #load ggplot
@@ -137,6 +136,7 @@ base <- ggplot(df, aes(x, y)) + geom_point()
 base + theme_grey() + ggtitle("theme_grey()")
 base + theme_bw() + ggtitle("theme_bw()")
 base + theme_linedraw() + ggtitle("theme_linedraw()")
+base + theme_phs()
 
 #PHS has a theme  - see phsstyles package
 ##theme_phs()
@@ -178,6 +178,11 @@ base + theme(plot.background = element_rect(colour = "red", linewidth = 2))
 base + theme(panel.background = element_rect(fill = "linen"))
 
 
+
+#modifying theme_phs
+
+base+ theme_phs() +theme(panel.grid.major.x =  element_blank(), 
+                         panel.grid.major.y = element_line(color="grey"))
 
 ##facets####
 View(mpg)
